@@ -4,7 +4,7 @@ class Category {
   const Category({
     required this.id,
     required this.title,
-    this.color = const Color.fromARGB(255, 201, 123, 123),
+    this.color = Colors.orange,
   });
 
   final String id;

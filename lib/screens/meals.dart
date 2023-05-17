@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+
 import 'package:mealapp/models/meal.dart';
 import 'package:mealapp/widgets/meal_item.dart';
 
-class MealScreen extends StatelessWidget {
-  const MealScreen({super.key, required this.title, required this.meals});
+class MealsScreen extends StatelessWidget {
+  const MealsScreen({
+    super.key,
+    required this.title,
+    required this.meals,
+  });
 
   final String title;
   final List<Meal> meals;
 
   @override
   Widget build(BuildContext context) {
-
     Widget content = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -31,7 +35,6 @@ class MealScreen extends StatelessWidget {
         ],
       ),
     );
-
 
     if (meals.isNotEmpty) {
       content = ListView.builder(
