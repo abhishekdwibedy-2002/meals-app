@@ -2,18 +2,35 @@ import 'package:flutter/material.dart';
 
 import 'package:mealapp/data/dummy_data.dart';
 import 'package:mealapp/models/meal.dart';
-import 'package:mealapp/widgets/category_grid.dart';
+import 'package:mealapp/widgets/category_grid_item.dart';
 import 'package:mealapp/screens/meals.dart';
 import 'package:mealapp/models/category.dart';
 
-class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key, required, required this.onSelectFunction,required this.selectMeals });
+class CategoriesScreen extends StatefulWidget {
+  const CategoriesScreen({
+    super.key,
+    required this.availableMeals,
+  });
 
-  final void Function(Meal meal) onSelectFunction;
-  final List<Meal> selectMeals;
+  final List<Meal> availableMeals;
+
+  @override
+  State<CategoriesScreen> createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+    );
+  }
 
   void _selectCategory(BuildContext context, Category category) {
-    final filteredMeals = selectMeals
+    final filteredMeals = widget.availableMeals
         .where((meal) => meal.categories.contains(category.id))
         .toList();
 
@@ -22,7 +39,6 @@ class CategoriesScreen extends StatelessWidget {
         builder: (ctx) => MealsScreen(
           title: category.title,
           meals: filteredMeals,
-          onSelectFunction: onSelectFunction,
         ),
       ),
     ); // Navigator.push(context, route)

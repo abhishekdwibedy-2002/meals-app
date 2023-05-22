@@ -9,17 +9,19 @@ class MealsScreen extends StatelessWidget {
     super.key,
     this.title,
     required this.meals,
-    required this.onSelectFunction,
   });
 
   final String? title;
   final List<Meal> meals;
-  final void Function(Meal meal) onSelectFunction;
 
-  void selectMeal(BuildContext ctx, Meal meal) {
-    Navigator.of(ctx).push(MaterialPageRoute(
-        builder: (context) =>
-            MealDetails(meal: meal, onSelectFunction: onSelectFunction)));
+  void selectMeal(BuildContext context, Meal meal) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => MealDetailsScreen(
+          meal: meal,
+        ),
+      ),
+    );
   }
 
   @override
@@ -50,8 +52,8 @@ class MealsScreen extends StatelessWidget {
         itemCount: meals.length,
         itemBuilder: (ctx, index) => MealItem(
           meal: meals[index],
-          onSelect: (meal) {
-            selectMeal(ctx, meal);
+          onSelectMeal: (meal) {
+            selectMeal(context, meal);
           },
         ),
       );
@@ -69,4 +71,3 @@ class MealsScreen extends StatelessWidget {
     );
   }
 }
-
